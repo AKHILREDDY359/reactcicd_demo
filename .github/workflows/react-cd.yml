@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 permissions:
-  contents: write  
+  contents: write
 
 jobs:
   build-and-deploy:
@@ -30,12 +30,13 @@ jobs:
         run: npm run build
 
       - name: Configure Git identity
+        if: matrix.os == 'ubuntu-latest'
         run: |
           git config --global user.name "AKHILREDDY359"
           git config --global user.email "akhilkumarreddyseelam@gmail.com"
 
       - name: Authenticate and deploy to GitHub Pages
-        if: matrix.os == 'ubuntu-latest'  # Deploy only from Ubuntu to avoid duplication
+        if: matrix.os == 'ubuntu-latest'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
